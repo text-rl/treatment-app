@@ -1,9 +1,20 @@
+from dataclasses import dataclass
+from datetime import datetime
+
+
+@dataclass
 class UserId:
-    def __init__(self, value: str):
-        self.value = value
+    value: str
 
 
+@dataclass
+class RunTextTreatmentMessage:
+    user_id: UserId
+    content: str
+    date_time: datetime
+
+
+@dataclass
 class TreatmentDoneMessage:
-    def __init__(self, user_id: UserId, result: str):
-        self.result = result
-        self.id = user_id
+    user_id: UserId
+    result: str
