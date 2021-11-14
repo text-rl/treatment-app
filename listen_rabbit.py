@@ -2,10 +2,10 @@
 import json
 from typing import Callable
 
+import humps
 import pika
 
 import constants
-from constants import rabbit_mq_host, text_rl_exchange, treatment_pending_routing_key, text_rl_exchange_type
 from settings import RabbitMqSettings
 
 
@@ -25,7 +25,9 @@ def start_listen(setting: RabbitMqSettings, callback: Callable):
 
     def result_handler(ch, method, properties, body: bytes):
         print(" [x] %r" % body)
-        callback(json.loads(body.decode(constants.default_encoding)))
+        str_body = body.decode(constants.default_encoding)
+        obj_body = json.loads(str_body)
+        callback(humps.decamelize(obj_body))
 
     channel.basic_consume(
         queue=queue_name, on_message_callback=result_handler, auto_ack=True)
