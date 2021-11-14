@@ -1,0 +1,6 @@
+default_encoding = 'utf-8'
+rabbit_mq_host = 'localhost'
+text_rl_exchange = 'text-rl.treatment'
+text_rl_exchange_type = 'topic'
+treatment_done_routing_key = 'text-rl.treatment.done'
+treatment_pending_routing_key = 'text-rl.treatment.pending'
