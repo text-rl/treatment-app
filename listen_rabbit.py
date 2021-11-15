@@ -24,8 +24,8 @@ def start_listen(setting: RabbitMqSettings, callback: Callable):
     print(' [*] Waiting for pending treatment messages. To exit press CTRL+C')
 
     def result_handler(ch, method, properties, body: bytes):
-        print(" [x] %r" % body)
         str_body = body.decode(constants.default_encoding)
+        print("Received message : \n [x] %s" % str_body)
         obj_body = json.loads(str_body)
         callback(humps.decamelize(obj_body))
 
