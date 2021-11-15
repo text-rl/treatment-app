@@ -3,5 +3,5 @@ Text treatment application which use trained IA models
 
 
 # dependencies : 
-* humps
+* pyhumps
 * pika
