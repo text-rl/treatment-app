@@ -1,5 +1,3 @@
-
-
 def loading_db(filename_data, label):
     blacklist = {}
     count = 0

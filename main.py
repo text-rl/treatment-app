@@ -4,12 +4,10 @@ import sys
 import publish_rabbit
 from constants import rabbit_mq_host, text_rl_exchange, treatment_pending_routing_key, text_rl_exchange_type, \
     treatment_done_routing_key
-
-from listen_rabbit import start_listen
-from messages import TreatmentDoneMessage, UserId, RunTextTreatmentMessage
-from settings import RabbitMqSettings
-
 from core.run import anonymize
+from listen_rabbit import start_listen
+from messages import TreatmentDoneMessage
+from settings import RabbitMqSettings
 
 listen_setting = RabbitMqSettings(routing_key=treatment_pending_routing_key, host=rabbit_mq_host,
                                   exchange=text_rl_exchange, exchange_type=text_rl_exchange_type)
