@@ -1,2 +1,4 @@
 pyhumps
 pika
+redis
+prometheus_client
