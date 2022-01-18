@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import threading
 import time
 
 import redis
@@ -8,7 +9,7 @@ from prometheus_client import start_http_server, Summary
 
 import publish_rabbit
 from constants import rabbit_mq_host, text_rl_exchange, treatment_pending_routing_key, text_rl_exchange_type, \
-    treatment_done_routing_key
+    treatment_done_routing_key, redis_host, redis_port, prometheus_http_port
 from core.run import anonymize
 from listen_rabbit import start_listen
 from messages import TreatmentDoneMessage
@@ -27,46 +28,19 @@ def on_message_received(v: dict):
 
 
 def test_redis():
-    client = redis.Redis(
-        host='localhost',
-        port='6379')
-
+    client = redis.Redis(host=redis_host, port=redis_port)
     client.set('mykey', 'Hello from Python!')
     value = client.get('mykey')
     print(value)
-
     client.zadd('vehicles', {'car': 0})
     client.zadd('vehicles', {'bike': 0})
     vehicles = client.zrange('vehicles', 0, -1)
     print(vehicles)
 
 
-# Create a metric to track time spent and requests made.
-REQUEST_TIME = Summary('request_processing_seconds', 'Time spent processing request')
-
-
-# Decorate function with metric.
-@REQUEST_TIME.time()
-def process_request(t):
-    """A dummy function that takes some time."""
-    time.sleep(t)
-    # Start up the server to expose the metrics.
-    start_http_server(8000)
-    # Generate some requests.
-    while True:
-        process_request(random.random())
-
-
-def test_prometheus():
-    # Start up the server to expose the metrics.
-    start_http_server(8000)
-    # Generate some requests.
-    while True:
-        process_request(random.random())
-
-
 if __name__ == '__main__':
     test_redis()
+    start_http_server(int(prometheus_http_port))
     try:
         start_listen(listen_setting, on_message_received)
 
