@@ -1,7 +1,3 @@
-import py_compile as pyc
-import os
-
-
 # TODO identify and labelise Entity
 def identify_entity(text):
     res = []

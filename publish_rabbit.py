@@ -1,16 +1,15 @@
 import dataclasses
+import json
 
 import humps
 import pika
-import json
 
-from constants import default_encoding, text_rl_exchange, treatment_done_routing_key, rabbit_mq_host
-
+from constants import default_encoding, rabbit_mq_host, rabbit_mq_port
 from settings import RabbitMqSettings
 
 
 def publish(setting: RabbitMqSettings, value):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(rabbit_mq_host))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbit_mq_host, port=rabbit_mq_port))
     channel = connection.channel()
     value = humps.camelize(dataclasses.asdict(value))
     str_value = json.dumps(value).encode(encoding=default_encoding)
