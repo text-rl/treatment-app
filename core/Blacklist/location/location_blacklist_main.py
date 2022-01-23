@@ -1,4 +1,4 @@
-from ..utils import loading_db
+from core.utils import loading_blacklist_db
 
 
 def extract_names(filename, outFile):
@@ -24,7 +24,7 @@ def cleaning_location_db():
 def loading_location_blacklist(cleaning=False):
     if cleaning:
         cleaning_location_db()
-    location_blacklist = loading_db("data/location/locations.csv", "geo")
+    location_blacklist = loading_blacklist_db("data/location/locations.csv", "geo")
 
     # testing
     assert "Port des Bareytes" in location_blacklist, "Error in person blacklist loading"

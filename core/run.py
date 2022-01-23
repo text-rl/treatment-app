@@ -8,8 +8,6 @@ def identify_entity(text):
 
     # TODO blacklist
 
-    # TODO regex
-
     # TODO patern matching
 
     # TODO NER

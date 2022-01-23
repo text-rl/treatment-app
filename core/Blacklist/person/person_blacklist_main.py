@@ -1,4 +1,4 @@
-from ..utils import loading_db
+from core.utils import loading_blacklist_db
 
 
 def extract_names(filename, outFile):
@@ -17,7 +17,7 @@ def loading_person_blacklist(cleaning=False):
     if cleaning:
         cleaning_name_db()
 
-    name_blacklist = loading_db("data/person/person_names_clean.csv", "per")
+    name_blacklist = loading_blacklist_db("data/person/person_names_clean.csv", "per")
 
     # testing
     assert "Alahmrey" in name_blacklist, "Error in person blacklist loading"

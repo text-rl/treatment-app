@@ -1,6 +1,7 @@
 # treatment-app
 Text treatment application which use trained IA models
 
+dans le répertoire docker_fyc : docker-compose up text-rl-redis 
 
 # dependencies : 
 * pyhumps
